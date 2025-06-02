@@ -25,9 +25,10 @@ void setup() {
 
   u8g2.begin();
   u8g2.clear();
-  u8g2.setFont(u8g2_font_ncenB14_tr);
+  u8g2.setContrast(255);
+  u8g2.setFont(u8g2_font_logisoso50_tr);
   u8g2.setCursor(0,u8g2.getFontAscent() - u8g2.getFontDescent());
-  u8g2.print("HELLO WORLD!");
+  u8g2.print("BOX");
   u8g2.sendBuffer();
 
   Serial.println("LoRa Receiver");
