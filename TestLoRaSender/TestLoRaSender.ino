@@ -2,7 +2,7 @@
 #include <LoRa.h>
 #include <Wire.h>
 
-int counter = 0;
+int buttonState = 0;  // variable for reading the pushbutton status
 
 #define LORA_BAND 866E6
 
@@ -15,7 +15,12 @@ int counter = 0;
 #define LORA_DIO1 35
 #define LORA_DIO2 34
 
+#define PRG_BUTTON 0
+
 void setup() {
+
+  pinMode(PRG_BUTTON, INPUT);
+
   Serial.begin(115200);
   while (!Serial);
 
@@ -30,16 +35,20 @@ void setup() {
 }
 
 void loop() {
-  Serial.print("Sending packet: ");
-  Serial.println(counter);
+  Serial.println("Loop");
 
-  // send packet
-  LoRa.beginPacket();
-  LoRa.print("hello ");
-  LoRa.print(counter);
-  LoRa.endPacket();
+  buttonState = digitalRead(PRG_BUTTON);
 
-  counter++;
+  if (buttonState == LOW) { // WTF
 
-  delay(5000);
+    Serial.println("Send packet!");
+
+    // send packet
+    LoRa.beginPacket();
+    LoRa.print("MEDIAVILLA BOX");
+    LoRa.endPacket();
+
+    delay(1000);
+  }
+
 }

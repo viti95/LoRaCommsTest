@@ -19,17 +19,16 @@
 
 U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, OLED_RESET, OLED_CLOCK, OLED_DATA);
 
+int fontHeight = 0;
+
 void setup() {
   Serial.begin(115200);
   while (!Serial);
 
   u8g2.begin();
-  u8g2.clear();
   u8g2.setContrast(255);
   u8g2.setFont(u8g2_font_logisoso50_tr);
-  u8g2.setCursor(0,u8g2.getFontAscent() - u8g2.getFontDescent());
-  u8g2.print("BOX");
-  u8g2.sendBuffer();
+  fontHeight = u8g2.getFontAscent() - u8g2.getFontDescent();
 
   Serial.println("LoRa Receiver");
 
@@ -44,17 +43,40 @@ void setup() {
 void loop() {
   // try to parse packet
   int packetSize = LoRa.parsePacket();
+
   if (packetSize) {
     // received a packet
-    Serial.print("Received packet '");
+    String text = LoRa.readString();
 
-    // read packet
-    while (LoRa.available()) {
-      Serial.print((char)LoRa.read());
+    Serial.println(text);
+
+    if (text == "MEDIAVILLA BOX") {
+      Serial.println("Comparativa OK");
+
+      for (int i = 0; i < 40; i++) {
+        u8g2.clear();
+        
+        if ((i % 2) == 0) {
+          u8g2.setCursor(0,fontHeight);
+          u8g2.print("BOX!");
+        }
+          
+        u8g2.sendBuffer();
+
+        delay(500);
+      }
+
+    } else {
+      Serial.println("Comparativa MAL");
     }
 
+    // read packet
+    //while (LoRa.available()) {
+    //  Serial.print((char)LoRa.read());
+    //}
+
     // print RSSI of packet
-    Serial.print("' with RSSI ");
+    Serial.print("RSSI: ");
     Serial.println(LoRa.packetRssi());
   }
 }
