@@ -1,6 +1,10 @@
 #include <SPI.h>
 #include <LoRa.h>
 #include <U8g2lib.h>
+#include <FastLED.h>
+
+#define NUM_LEDS 15
+#define PIN_DATA_MATRIX 21
 
 #define LORA_BAND 866E6
 
@@ -17,6 +21,8 @@
 #define OLED_DATA 4
 #define OLED_RESET 16
 
+CRGBArray<NUM_LEDS> leds;
+
 U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, OLED_RESET, OLED_CLOCK, OLED_DATA);
 
 int fontHeight = 0;
@@ -24,6 +30,12 @@ int fontHeight = 0;
 void setup() {
   Serial.begin(115200);
   while (!Serial);
+
+  Serial.println("Init WS2812 matrix led");
+
+  FastLED.addLeds<NEOPIXEL, PIN_DATA_MATRIX>(leds, NUM_LEDS);
+
+  Serial.println("Init SSD1306 display");
 
   u8g2.begin();
   u8g2.setContrast(255);
@@ -55,12 +67,17 @@ void loop() {
 
       for (int i = 0; i < 40; i++) {
         u8g2.clear();
+
+        leds.fill_solid(CRGB::Black);
         
         if ((i % 2) == 0) {
           u8g2.setCursor(0,fontHeight);
           u8g2.print("BOX!");
+
+          leds.fill_solid(CRGB::Red);
         }
           
+        FastLED.show();
         u8g2.sendBuffer();
 
         delay(500);
@@ -69,11 +86,6 @@ void loop() {
     } else {
       Serial.println("Comparativa MAL");
     }
-
-    // read packet
-    //while (LoRa.available()) {
-    //  Serial.print((char)LoRa.read());
-    //}
 
     // print RSSI of packet
     Serial.print("RSSI: ");
