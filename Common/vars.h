@@ -21,3 +21,9 @@
 #define CMD_YELLOW_FLAG "MVD YF"
 #define CMD_DRIVE_THROUGH "MVD DT"
 #define CMD_BLOCK "MVD BLK" 
+
+// Fonts for text sizes
+// 3 chars -> u8g2_font_logisoso50_tr
+// 4 chars -> u8g2_font_logisoso50_tr
+// 5 chars -> u8g2_font_logisoso38_tr
+// 6 chars -> u8g2_font_logisoso34_tr

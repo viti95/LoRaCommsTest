@@ -11,9 +11,9 @@
 
 #define MESSAGE_BOX "BOX"
 #define MESSAGE_SLOW "SLOW"
-#define MESSAGE_YELLOW_FLAG "YF"
+#define MESSAGE_YELLOW_FLAG "YELLOW"
 #define MESSAGE_PUSH "PUSH"
-#define MESSAGE_DRIVE_THROUGH "DT"
+#define MESSAGE_DRIVE_THROUGH "DRV TR"
 #define MESSAGE_BLOCK "BLOCK"
 
 CRGBArray<NUM_LEDS> leds;
@@ -36,8 +36,6 @@ void setup() {
 
   u8g2.begin();
   u8g2.setContrast(OLED_BRIGHTNESS);
-  u8g2.setFont(u8g2_font_logisoso50_tr);
-  fontHeight = u8g2.getFontAscent() - u8g2.getFontDescent();
 
   Serial.println("LoRa Receiver");
 
@@ -56,6 +54,10 @@ void setup() {
 }
 
 void cmd_box() {
+
+  u8g2.setFont(u8g2_font_logisoso50_tr);
+  fontHeight = u8g2.getFontAscent() - u8g2.getFontDescent();
+
   for (int i = 0; i < 10; i++) {
     u8g2.clear();
 
@@ -76,6 +78,10 @@ void cmd_box() {
 }
 
 void cmd_yellow_flag() {
+
+  u8g2.setFont(u8g2_font_logisoso34_tr);
+  fontHeight = u8g2.getFontAscent() - u8g2.getFontDescent();
+
   for (int i = 0; i < 10; i++) {
     u8g2.clear();
 
@@ -84,7 +90,6 @@ void cmd_yellow_flag() {
     if ((i % 2) == 0) {
       u8g2.setCursor(0, fontHeight);
       u8g2.print(MESSAGE_YELLOW_FLAG);
-
       leds.fill_solid(CRGB::Yellow);
     }
 
@@ -96,6 +101,10 @@ void cmd_yellow_flag() {
 }
 
 void cmd_push() {
+
+  u8g2.setFont(u8g2_font_logisoso50_tr);
+  fontHeight = u8g2.getFontAscent() - u8g2.getFontDescent();
+
   for (int i = 0; i < 10; i++) {
     u8g2.clear();
 
@@ -116,6 +125,10 @@ void cmd_push() {
 }
 
 void cmd_drive_through() {
+
+  u8g2.setFont(u8g2_font_logisoso34_tr);
+  fontHeight = u8g2.getFontAscent() - u8g2.getFontDescent();
+
   for (int i = 0; i < 10; i++) {
     u8g2.clear();
 
@@ -136,6 +149,9 @@ void cmd_drive_through() {
 }
 
 void cmd_slow() {
+
+  u8g2.setFont(u8g2_font_logisoso50_tr);
+  fontHeight = u8g2.getFontAscent() - u8g2.getFontDescent();
 
   for (int i = 0; i < 10; i++) {
     u8g2.clear();
@@ -158,6 +174,10 @@ void cmd_slow() {
 }
 
 void cmd_block() {
+
+  u8g2.setFont(u8g2_font_logisoso38_tr);
+  fontHeight = u8g2.getFontAscent() - u8g2.getFontDescent();
+
   for (int i = 0; i < 10; i++) {
     u8g2.clear();
 
