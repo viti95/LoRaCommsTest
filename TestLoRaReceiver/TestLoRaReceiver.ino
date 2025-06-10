@@ -5,7 +5,7 @@
 #include "../Common/vars.h"
 
 #define NUM_LEDS 64
-#define PIN_DATA_MATRIX 21
+#define PIN_DATA_MATRIX 13
 
 CRGBArray<NUM_LEDS> leds;
 

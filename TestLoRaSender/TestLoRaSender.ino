@@ -3,11 +3,21 @@
 #include <Wire.h>
 #include "../Common/vars.h"
 
+// Buttons
+#define BUTTON_0 36
+#define BUTTON_1 37
+#define BUTTON_2 38
+#define BUTTON_3 39
+#define BUTTON_4 32
+#define BUTTON_5 33
+#define BUTTON_6 12
+#define BUTTON_7 13
+
 int buttonState = 0;  // variable for reading the pushbutton status
 
 void setup() {
 
-  pinMode(PRG_BUTTON, INPUT);
+  pinMode(BUTTON_0, INPUT);
 
   Serial.begin(115200);
   while (!Serial);
@@ -30,9 +40,9 @@ void setup() {
 void loop() {
   Serial.println("Loop");
 
-  buttonState = digitalRead(PRG_BUTTON);
+  buttonState = digitalRead(BUTTON_0);
 
-  if (buttonState == LOW) { // WTF
+  if (buttonState == LOW) {
 
     Serial.println("Send packet!");
 

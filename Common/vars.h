@@ -16,4 +16,3 @@
 #define PRG_BUTTON 0
 
 #define BOX_MESSAGE "MVD BOX"
-
