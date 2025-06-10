@@ -32,6 +32,11 @@ void setup() {
     Serial.println("Starting LoRa failed!");
     while (1);
   }
+
+  LoRa.setTxPower(17);
+  LoRa.setSpreadingFactor(12);
+  LoRa.setCodingRate4(8); 
+  LoRa.enableCrc();
 }
 
 void loop() {
@@ -45,7 +50,7 @@ void loop() {
 
     // send packet
     LoRa.beginPacket();
-    LoRa.print("MEDIAVILLA BOX");
+    LoRa.print("MVD BOX");
     LoRa.endPacket();
 
     delay(1000);

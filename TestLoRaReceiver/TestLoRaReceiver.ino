@@ -50,6 +50,11 @@ void setup() {
     Serial.println("Starting LoRa failed!");
     while (1);
   }
+
+  LoRa.setTxPower(17);
+  LoRa.setSpreadingFactor(12);
+  LoRa.setCodingRate4(8); 
+  LoRa.enableCrc();
 }
 
 void loop() {
@@ -62,7 +67,7 @@ void loop() {
 
     Serial.println(text);
 
-    if (text == "MEDIAVILLA BOX") {
+    if (text == "MVD BOX") {
       Serial.println("Comparativa OK");
 
       for (int i = 0; i < 40; i++) {
