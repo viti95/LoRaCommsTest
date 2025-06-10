@@ -20,8 +20,6 @@ CRGBArray<NUM_LEDS> leds;
 
 U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, OLED_RESET, OLED_CLOCK, OLED_DATA);
 
-int fontHeight = 0;
-
 void setup() {
   Serial.begin(115200);
   while (!Serial)
@@ -53,148 +51,159 @@ void setup() {
   LoRa.enableCrc();
 }
 
+int get_y_cursor() {
+  int fontHeight = u8g2.getFontAscent() - u8g2.getFontDescent();
+
+  if (fontHeight > 64)
+    return fontHeight;
+  else
+    return 63 - ((64 - fontHeight) / 2);
+}
+
 void cmd_box() {
 
   u8g2.setFont(u8g2_font_logisoso50_tr);
-  fontHeight = u8g2.getFontAscent() - u8g2.getFontDescent();
+  u8g2.clear();
+  u8g2.setCursor(0, get_y_cursor());
+  u8g2.print(MESSAGE_BOX);
+  u8g2.sendBuffer();
 
   for (int i = 0; i < 10; i++) {
-    u8g2.clear();
-
     leds.fill_solid(CRGB::Black);
 
     if ((i % 2) == 0) {
-      u8g2.setCursor(0, fontHeight);
-      u8g2.print(MESSAGE_BOX);
-
       leds.fill_solid(CRGB::Red);
     }
 
     FastLED.show();
-    u8g2.sendBuffer();
 
     delay(250);
   }
+
+  u8g2.clear();
+  u8g2.sendBuffer();
 }
 
 void cmd_yellow_flag() {
 
   u8g2.setFont(u8g2_font_logisoso34_tr);
-  fontHeight = u8g2.getFontAscent() - u8g2.getFontDescent();
+  u8g2.clear();
+  u8g2.setCursor(0, get_y_cursor());
+  u8g2.print(MESSAGE_YELLOW_FLAG);
+  u8g2.sendBuffer();
 
   for (int i = 0; i < 10; i++) {
-    u8g2.clear();
-
     leds.fill_solid(CRGB::Black);
 
     if ((i % 2) == 0) {
-      u8g2.setCursor(0, fontHeight);
-      u8g2.print(MESSAGE_YELLOW_FLAG);
       leds.fill_solid(CRGB::Yellow);
     }
 
     FastLED.show();
-    u8g2.sendBuffer();
 
     delay(250);
   }
+
+  u8g2.clear();
+  u8g2.sendBuffer();
 }
 
 void cmd_push() {
 
   u8g2.setFont(u8g2_font_logisoso50_tr);
-  fontHeight = u8g2.getFontAscent() - u8g2.getFontDescent();
+  u8g2.clear();
+  u8g2.setCursor(0, get_y_cursor());
+  u8g2.print(MESSAGE_PUSH);
+  u8g2.sendBuffer();
 
   for (int i = 0; i < 10; i++) {
-    u8g2.clear();
-
     leds.fill_solid(CRGB::Black);
 
     if ((i % 2) == 0) {
-      u8g2.setCursor(0, fontHeight);
-      u8g2.print(MESSAGE_PUSH);
-
       leds.fill_solid(CRGB::Green);
     }
 
     FastLED.show();
-    u8g2.sendBuffer();
 
     delay(250);
   }
+
+  u8g2.clear();
+  u8g2.sendBuffer();
 }
 
 void cmd_drive_through() {
 
   u8g2.setFont(u8g2_font_logisoso34_tr);
-  fontHeight = u8g2.getFontAscent() - u8g2.getFontDescent();
+  u8g2.clear();
+  u8g2.setCursor(0, get_y_cursor());
+  u8g2.print(MESSAGE_DRIVE_THROUGH);
+  u8g2.sendBuffer();
 
   for (int i = 0; i < 10; i++) {
-    u8g2.clear();
-
     leds.fill_solid(CRGB::Black);
 
     if ((i % 2) == 0) {
-      u8g2.setCursor(0, fontHeight);
-      u8g2.print(MESSAGE_DRIVE_THROUGH);
-
       leds.fill_solid(CRGB::OrangeRed);
     }
 
     FastLED.show();
-    u8g2.sendBuffer();
 
     delay(250);
   }
+
+  u8g2.clear();
+  u8g2.sendBuffer();
 }
 
 void cmd_slow() {
 
   u8g2.setFont(u8g2_font_logisoso50_tr);
-  fontHeight = u8g2.getFontAscent() - u8g2.getFontDescent();
+  u8g2.clear();
+  u8g2.setCursor(0, get_y_cursor());
+  u8g2.print(MESSAGE_SLOW);
+  u8g2.sendBuffer();
 
   for (int i = 0; i < 10; i++) {
-    u8g2.clear();
-
     leds.fill_solid(CRGB::Black);
 
     if ((i % 2) == 0) {
-      u8g2.setCursor(0, fontHeight);
-      u8g2.print(MESSAGE_SLOW);
-
       leds.fill_solid(CRGB::Blue);
     }
 
     FastLED.show();
-    u8g2.sendBuffer();
 
     delay(250);
   }
+
+  u8g2.clear();
+  u8g2.sendBuffer();
 
 }
 
 void cmd_block() {
 
   u8g2.setFont(u8g2_font_logisoso38_tr);
-  fontHeight = u8g2.getFontAscent() - u8g2.getFontDescent();
+  u8g2.clear();
+  u8g2.setCursor(0, get_y_cursor());
+  u8g2.print(MESSAGE_BLOCK);
+  u8g2.sendBuffer();
 
   for (int i = 0; i < 10; i++) {
-    u8g2.clear();
-
     leds.fill_solid(CRGB::Black);
 
     if ((i % 2) == 0) {
-      u8g2.setCursor(0, fontHeight);
-      u8g2.print(MESSAGE_BLOCK);
-
       leds.fill_solid(CRGB::White);
     }
 
     FastLED.show();
-    u8g2.sendBuffer();
 
     delay(250);
   }
+
+  u8g2.clear();
+  u8g2.sendBuffer();
+
 }
 
 void loop() {
