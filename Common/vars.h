@@ -15,4 +15,9 @@
 
 #define PRG_BUTTON 0
 
-#define BOX_MESSAGE "MVD BOX"
+#define CMD_BOX "MVD BOX"
+#define CMD_SLOW "MVD SLW"
+#define CMD_PUSH "MVD PSH"
+#define CMD_YELLOW_FLAG "MVD YF"
+#define CMD_DRIVE_THROUGH "MVD DT"
+#define CMD_BLOCK "MVD BLK" 
