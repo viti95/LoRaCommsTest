@@ -3,7 +3,7 @@
 #include <U8g2lib.h>
 #include <FastLED.h>
 
-#define NUM_LEDS 15
+#define NUM_LEDS 64
 #define PIN_DATA_MATRIX 21
 
 #define LORA_BAND 866E6
@@ -38,7 +38,7 @@ void setup() {
   Serial.println("Init SSD1306 display");
 
   u8g2.begin();
-  u8g2.setContrast(255);
+  u8g2.setContrast(255/4);
   u8g2.setFont(u8g2_font_logisoso50_tr);
   fontHeight = u8g2.getFontAscent() - u8g2.getFontDescent();
 
