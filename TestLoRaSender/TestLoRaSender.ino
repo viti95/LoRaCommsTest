@@ -1,7 +1,13 @@
 #include <SPI.h>
 #include <LoRa.h>
+#include <U8g2lib.h>
 #include <Wire.h>
 #include "../Common/vars.h"
+
+#define OLED_BRIGHTNESS 255
+
+#define MESSAGE_SENDING "SENDING"
+#define MESSAGE_OK      "OK"
 
 // Buttons
 #define BUTTON_0 36
@@ -22,6 +28,8 @@ int buttonState5 = 0;
 int buttonState6 = 0;
 int buttonState7 = 0;
 
+U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(U8G2_R2, OLED_RESET, OLED_CLOCK, OLED_DATA);
+
 void setup() {
 
   pinMode(BUTTON_0, INPUT);
@@ -35,6 +43,11 @@ void setup() {
 
   Serial.begin(115200);
   while (!Serial);
+
+  Serial.println("Init SSD1306 display");
+
+  u8g2.begin();
+  u8g2.setContrast(OLED_BRIGHTNESS);
 
   Serial.println("LoRa Sender");
 
@@ -51,6 +64,40 @@ void setup() {
   LoRa.enableCrc();
 }
 
+int get_y_cursor() {
+  int fontHeight = u8g2.getFontAscent() - u8g2.getFontDescent();
+
+  if (fontHeight > 64)
+    return fontHeight;
+  else
+    return 63 - ((64 - fontHeight) / 2);
+}
+
+void display_send_msg() {
+
+  u8g2.setFont(u8g2_font_logisoso30_tr);
+  u8g2.clear();
+  u8g2.setCursor(0, get_y_cursor());
+  u8g2.print(MESSAGE_SENDING);
+  u8g2.sendBuffer();
+
+}
+
+void display_ok() {
+
+  u8g2.setFont(u8g2_font_logisoso50_tr);
+  u8g2.clear();
+  u8g2.setCursor(0, get_y_cursor());
+  u8g2.print(MESSAGE_OK);
+  u8g2.sendBuffer();
+
+}
+
+void display_clear() {
+  u8g2.clear();
+  u8g2.sendBuffer();
+}
+
 void loop() {
   Serial.println("Loop");
 
@@ -60,12 +107,18 @@ void loop() {
 
     Serial.println("Button K1, send packet!");
 
+    display_send_msg();
+
     // send packet
     LoRa.beginPacket();
     LoRa.print(CMD_BOX);
     LoRa.endPacket();
 
+    display_ok();
+
     delay(1000);
+
+    display_clear();
   }
 
   buttonState1 = digitalRead(BUTTON_1);
@@ -74,12 +127,18 @@ void loop() {
 
     Serial.println("Button K2, send packet!");
 
+    display_send_msg();
+
     // send packet
     LoRa.beginPacket();
     LoRa.print(CMD_YELLOW_FLAG);
     LoRa.endPacket();
 
+    display_ok();
+
     delay(1000);
+
+    display_clear();
   }
 
   buttonState2 = digitalRead(BUTTON_2);
@@ -88,12 +147,18 @@ void loop() {
 
     Serial.println("Button K3, send packet!");
 
+    display_send_msg();
+
     // send packet
     LoRa.beginPacket();
     LoRa.print(CMD_SLOW);
     LoRa.endPacket();
 
+    display_ok();
+
     delay(1000);
+
+    display_clear();
   }
 
   buttonState3 = digitalRead(BUTTON_3);
@@ -102,12 +167,18 @@ void loop() {
 
     Serial.println("Button K4, send packet!");
 
+    display_send_msg();
+
     // send packet
     LoRa.beginPacket();
     LoRa.print(CMD_PUSH);
     LoRa.endPacket();
 
+    display_ok();
+
     delay(1000);
+
+    display_clear();
   }
 
   buttonState4 = digitalRead(BUTTON_4);
@@ -116,12 +187,18 @@ void loop() {
 
     Serial.println("Button K5, send packet!");
 
+    display_send_msg();
+
     // send packet
     LoRa.beginPacket();
     LoRa.print(CMD_DRIVE_THROUGH);
     LoRa.endPacket();
 
+    display_ok();
+
     delay(1000);
+
+    display_clear();
   }
 
   buttonState5 = digitalRead(BUTTON_5);
@@ -130,12 +207,18 @@ void loop() {
 
     Serial.println("Button K6, send packet!");
 
+    //display_send_msg();
+
     // send packet
     /*LoRa.beginPacket();
     LoRa.print();
     LoRa.endPacket();*/
 
-    delay(1000);
+    //display_ok();
+
+    //delay(1000);
+
+    //display_clear();
   }
 
   buttonState6 = digitalRead(BUTTON_6);
@@ -144,12 +227,18 @@ void loop() {
 
     Serial.println("Button K7, send packet!");
 
+    display_send_msg();
+
     // send packet
     LoRa.beginPacket();
     LoRa.print(CMD_BLOCK);
     LoRa.endPacket();
 
+    display_ok();
+
     delay(1000);
+
+    display_clear();
   }
 
   buttonState7 = digitalRead(BUTTON_7);
@@ -158,11 +247,17 @@ void loop() {
 
     Serial.println("Button K8, send packet!");
 
+    //display_send_msg();
+
     // send packet
     /*LoRa.beginPacket();
     LoRa.print();
     LoRa.endPacket();*/
 
-    delay(1000);
+    //display_ok();
+
+    //delay(1000);
+
+    //display_clear();
   }
 }
