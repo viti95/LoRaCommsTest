@@ -58,19 +58,14 @@ void setup() {
     while (1);
   }
 
-  LoRa.setTxPower(17);
+  LoRa.setTxPower(20);
   LoRa.setSpreadingFactor(12);
   LoRa.setCodingRate4(8); 
   LoRa.enableCrc();
 }
 
 int get_y_cursor() {
-  int fontHeight = u8g2.getFontAscent() - u8g2.getFontDescent();
-
-  if (fontHeight > 64)
-    return fontHeight;
-  else
-    return 63 - ((64 - fontHeight) / 2);
+  return 63;
 }
 
 void display_send_msg() {
@@ -99,7 +94,6 @@ void display_clear() {
 }
 
 void loop() {
-  Serial.println("Loop");
 
   buttonState0 = digitalRead(BUTTON_0);
 
