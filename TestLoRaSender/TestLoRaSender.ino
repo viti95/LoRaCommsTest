@@ -235,7 +235,7 @@ void loop() {
     display_clear();
   }
 
-  buttonState7 = digitalRead(BUTTON_7);
+  /*buttonState7 = digitalRead(BUTTON_7);
 
   if (buttonState7 == LOW) {
 
@@ -244,14 +244,14 @@ void loop() {
     //display_send_msg();
 
     // send packet
-    /*LoRa.beginPacket();
+    LoRa.beginPacket();
     LoRa.print();
-    LoRa.endPacket();*/
+    LoRa.endPacket();
 
     //display_ok();
 
     //delay(1000);
 
     //display_clear();
-  }
+  }*/
 }
