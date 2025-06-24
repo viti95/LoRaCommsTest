@@ -2,6 +2,8 @@
 #include <LoRa.h>
 #include <U8g2lib.h>
 #include <FastLED.h>
+#include <Wire.h>
+#include <LiquidCrystal_PCF8574.h>
 #include "../Common/vars.h"
 
 #define NUM_LEDS 64
@@ -29,6 +31,8 @@ CRGBArray<NUM_LEDS> leds;
 
 U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, OLED_RESET, OLED_CLOCK, OLED_DATA);
 
+LiquidCrystal_PCF8574 lcd(0x27);
+
 void setup() {
 
   pinMode(PRG_BUTTON, INPUT);
@@ -36,6 +40,13 @@ void setup() {
   Serial.begin(115200);
   while (!Serial)
     ;
+
+  Wire.begin(15, 4, 400000UL);
+  Wire1.begin(21,22,400000UL);
+  
+  lcd.begin(20,4, Wire1);
+  lcd.setBacklight(255);
+  lcd.clear();
 
   Serial.println("Init WS2812 matrix led");
 
@@ -75,6 +86,12 @@ void cmd_box() {
   u8g2.print(MESSAGE_BOX);
   u8g2.sendBuffer();
 
+  lcd.clear();
+  lcd.setCursor(4, 0);
+  lcd.print("BOX      BOX");
+  lcd.setCursor(4, 3);
+  lcd.print("BOX      BOX");
+
   for (int i = 0; i < 10; i++) {
     leds.fill_solid(CRGB::Black);
 
@@ -89,6 +106,8 @@ void cmd_box() {
 
   u8g2.clear();
   u8g2.sendBuffer();
+
+  lcd.clear();
 }
 
 void cmd_yellow_flag() {
@@ -226,15 +245,15 @@ void cmd_cambio_brillo() {
 
   switch(brightness){
     case 0:
-      u8g2.print(MESSAGE_BRILLO_BAJO);
+      //u8g2.print(MESSAGE_BRILLO_BAJO);
       FastLED.setBrightness(RGB_BRIGHTNESS_LOW);  
       break;
     case 1:
-      u8g2.print(MESSAGE_BRILLO_MEDIO);
+      //u8g2.print(MESSAGE_BRILLO_MEDIO);
       FastLED.setBrightness(RGB_BRIGHTNESS_MEDIUM);
       break;
     case 2:
-      u8g2.print(MESSAGE_BRILLO_ALTO);
+      //u8g2.print(MESSAGE_BRILLO_ALTO);
       FastLED.setBrightness(RGB_BRIGHTNESS_HIGH);
       break;
   }
