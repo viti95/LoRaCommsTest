@@ -254,4 +254,36 @@ void loop() {
 
     //display_clear();
   }*/
+
+  // Leer serie, si llega un mensaje, mandarlo
+
+  if (Serial.available()){
+
+    // Esperar a que llegue todo
+    delay(100);
+
+    display_send_msg();
+
+    String text;
+
+    LoRa.beginPacket();
+
+    LoRa.print(CMD_MSG);
+
+    while(Serial.available())
+    {
+      char inChar = (char)Serial.read();
+      LoRa.print(inChar);
+    }
+
+    LoRa.print('\n');
+    LoRa.endPacket();
+
+    display_ok();
+
+    delay(1000);
+
+    display_clear();
+
+  }
 }

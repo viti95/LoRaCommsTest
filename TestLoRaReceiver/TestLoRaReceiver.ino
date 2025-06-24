@@ -18,6 +18,7 @@
 #define MESSAGE_BRILLO_ALTO "Brillo ALTO"
 
 #define MESSAGE_BOX "BOX"
+#define MESSAGE_MSG "MSG"
 #define MESSAGE_SLOW "SLOW"
 #define MESSAGE_YELLOW_FLAG "YELLOW"
 #define MESSAGE_PUSH "PUSH"
@@ -158,6 +159,7 @@ void cmd_push() {
     leds.fill_solid(CRGB::Black);
 
     if ((i % 2) == 0) {
+    LoRa.print('\n');
       leds.fill_solid(CRGB::Green);
     }
 
@@ -306,6 +308,66 @@ void cmd_cambio_brillo() {
   lcd.clear();
 }
 
+void cmd_msg(String *text) {
+
+  u8g2.setFont(u8g2_font_logisoso50_tr);
+  u8g2.clear();
+  u8g2.setCursor(0, get_y_cursor());
+  u8g2.print(MESSAGE_MSG);
+  u8g2.sendBuffer();
+
+  for (int i = 0; i < 6; i++) {
+    leds.fill_solid(CRGB::Black);
+
+    if ((i % 2) == 0) {
+      leds.fill_solid(CRGB::White);
+    }
+
+    FastLED.show();
+
+    delay(100);
+  }
+
+  text->replace(CMD_MSG, "");
+
+  lcd.clear();
+
+  // Saltos de linea no funcionan bien (¿problema de la librería?)
+  lcd.setCursor(0, 0);
+
+  for (int i = 0; i < 20; i++) {
+    if(text->charAt(i) == '\n') return;
+    lcd.print(text->charAt(i));
+  }
+
+  lcd.setCursor(0, 1);
+  
+  for (int i = 20; i < 40; i++) {
+    if(text->charAt(i) == '\n') return;
+    lcd.print(text->charAt(i));
+  }
+
+  lcd.setCursor(0, 2);
+  
+  for (int i = 40; i < 60; i++) {
+    if(text->charAt(i) == '\n') return;
+    lcd.print(text->charAt(i));
+  }
+  
+  lcd.setCursor(0, 3);
+  
+  for (int i = 60; i < 80; i++) {
+    if(text->charAt(i) == '\n') return;
+    lcd.print(text->charAt(i));
+  }
+
+  u8g2.clear();
+  u8g2.sendBuffer();
+
+  delay(1000);
+
+}
+
 void loop() {
 
   buttonState = digitalRead(PRG_BUTTON);
@@ -338,6 +400,8 @@ void loop() {
       cmd_drive_through();
     } else if (text == CMD_BLOCK) {
       cmd_block();
+    } else if (text.startsWith(CMD_MSG)) {
+      cmd_msg(&text);
     }
 
   }
