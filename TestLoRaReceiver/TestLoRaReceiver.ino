@@ -118,6 +118,10 @@ void cmd_yellow_flag() {
   u8g2.print(MESSAGE_YELLOW_FLAG);
   u8g2.sendBuffer();
 
+  lcd.clear();
+  lcd.setCursor(4, 1);
+  lcd.print("YELLOW FLAG");
+
   for (int i = 0; i < 10; i++) {
     leds.fill_solid(CRGB::Black);
 
@@ -132,6 +136,8 @@ void cmd_yellow_flag() {
 
   u8g2.clear();
   u8g2.sendBuffer();
+
+  lcd.clear();
 }
 
 void cmd_push() {
@@ -141,6 +147,12 @@ void cmd_push() {
   u8g2.setCursor(0, get_y_cursor());
   u8g2.print(MESSAGE_PUSH);
   u8g2.sendBuffer();
+
+  lcd.clear();
+  lcd.setCursor(4, 0);
+  lcd.print("PUSH    PUSH");
+  lcd.setCursor(4, 3);
+  lcd.print("PUSH    PUSH");
 
   for (int i = 0; i < 10; i++) {
     leds.fill_solid(CRGB::Black);
@@ -156,6 +168,8 @@ void cmd_push() {
 
   u8g2.clear();
   u8g2.sendBuffer();
+
+  lcd.clear();
 }
 
 void cmd_drive_through() {
@@ -165,6 +179,10 @@ void cmd_drive_through() {
   u8g2.setCursor(0, get_y_cursor());
   u8g2.print(MESSAGE_DRIVE_THROUGH);
   u8g2.sendBuffer();
+
+  lcd.clear();
+  lcd.setCursor(0, 1);
+  lcd.print("DRIVE THROUGH");
 
   for (int i = 0; i < 10; i++) {
     leds.fill_solid(CRGB::Black);
@@ -180,6 +198,8 @@ void cmd_drive_through() {
 
   u8g2.clear();
   u8g2.sendBuffer();
+
+  lcd.clear();
 }
 
 void cmd_slow() {
@@ -189,6 +209,12 @@ void cmd_slow() {
   u8g2.setCursor(0, get_y_cursor());
   u8g2.print(MESSAGE_SLOW);
   u8g2.sendBuffer();
+
+  lcd.clear();
+  lcd.setCursor(4, 0);
+  lcd.print("SLOW    SLOW");
+  lcd.setCursor(4, 3);
+  lcd.print("SLOW    SLOW");
 
   for (int i = 0; i < 10; i++) {
     leds.fill_solid(CRGB::Black);
@@ -205,6 +231,7 @@ void cmd_slow() {
   u8g2.clear();
   u8g2.sendBuffer();
 
+  lcd.clear();
 }
 
 void cmd_block() {
@@ -214,6 +241,10 @@ void cmd_block() {
   u8g2.setCursor(0, get_y_cursor());
   u8g2.print(MESSAGE_BLOCK);
   u8g2.sendBuffer();
+
+  lcd.clear();
+  lcd.setCursor(7, 2);
+  lcd.print("BLOCK");
 
   for (int i = 0; i < 10; i++) {
     leds.fill_solid(CRGB::Black);
@@ -230,6 +261,7 @@ void cmd_block() {
   u8g2.clear();
   u8g2.sendBuffer();
 
+  lcd.clear();
 }
 
 void cmd_cambio_brillo() {
@@ -243,18 +275,24 @@ void cmd_cambio_brillo() {
   u8g2.clear();
   u8g2.setCursor(0, get_y_cursor());
 
+  lcd.clear();
+  lcd.setCursor(0,4);
+
   switch(brightness){
     case 0:
-      //u8g2.print(MESSAGE_BRILLO_BAJO);
-      FastLED.setBrightness(RGB_BRIGHTNESS_LOW);  
+      u8g2.print(MESSAGE_BRILLO_BAJO);
+      FastLED.setBrightness(RGB_BRIGHTNESS_LOW);
+      lcd.print(MESSAGE_BRILLO_BAJO);
       break;
     case 1:
-      //u8g2.print(MESSAGE_BRILLO_MEDIO);
+      u8g2.print(MESSAGE_BRILLO_MEDIO);
       FastLED.setBrightness(RGB_BRIGHTNESS_MEDIUM);
+      lcd.print(MESSAGE_BRILLO_MEDIO);
       break;
     case 2:
-      //u8g2.print(MESSAGE_BRILLO_ALTO);
+      u8g2.print(MESSAGE_BRILLO_ALTO);
       FastLED.setBrightness(RGB_BRIGHTNESS_HIGH);
+      lcd.print(MESSAGE_BRILLO_ALTO);
       break;
   }
 
@@ -264,6 +302,8 @@ void cmd_cambio_brillo() {
 
   u8g2.clear();
   u8g2.sendBuffer();
+
+  lcd.clear();
 }
 
 void loop() {
