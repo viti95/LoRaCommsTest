@@ -19,9 +19,10 @@ class SerialSenderApp:
         # Menú desplegable para puertos serie
         self.port_var = tk.StringVar()
         ports = [port.device for port in serial.tools.list_ports.comports()]
+        ports.reverse()
         if not ports:
             ports = ["(No hay puertos)"]
-        self.port_var.set(ports[32])
+        self.port_var.set(ports[0])
         tk.Label(root, text="Puerto Serie:").pack()
 
         self.port_dropdown = ttk.Combobox(root, textvariable=self.port_var, values=ports, state="readonly", height=5)
