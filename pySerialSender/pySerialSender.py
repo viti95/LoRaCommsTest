@@ -20,25 +20,17 @@ class SerialSenderApp:
         ports = [port.device for port in serial.tools.list_ports.comports()]
         if not ports:
             ports = ["(No hay puertos)"]
-        self.port_var.set(ports[0])
+        self.port_var.set(ports[32])
         tk.Label(root, text="Puerto Serie:").pack()
-        tk.OptionMenu(root, self.port_var, *ports).pack(pady=5)
+        tk.OptionMenu(root, self.port_var, *ports).pack(pady=0)
 
         # Botón de envío
         tk.Button(root, text="Enviar por Serie", command=self.send_serial).pack(pady=10)
 
     def send_serial(self):
         lines = self.textbox.get("1.0", "end").splitlines()
-        formatted = []
-
-        for i in range(4):
-            if i < len(lines):
-                line = lines[i][:20].ljust(20)  # recorta o rellena a 20
-            else:
-                line = " " * 20
-            formatted.append(line)
-
-        message = "\n".join(formatted)
+        
+        message = lines[0]
 
         port = self.port_var.get()
         if "(No hay puertos)" in port:
