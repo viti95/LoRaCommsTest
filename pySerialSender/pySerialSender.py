@@ -15,6 +15,7 @@ class SerialSenderApp:
         # Caja de texto multilinea 4x20
         self.textbox = tk.Text(root, height=4, width=20, font=("Courier", 12))
         self.textbox.pack(pady=5)
+        self.textbox.bind("<Key>", self.limit_text_input)
 
         # Menú desplegable para puertos serie
         self.port_var = tk.StringVar()
@@ -32,10 +33,16 @@ class SerialSenderApp:
         # Botón de envío
         tk.Button(root, text="Enviar por Serie", command=self.send_serial).pack(pady=10)
 
+    def limit_text_input(self, event):
+        allowed_keys = ("BackSpace", "Delete", "Left", "Right", "Up", "Down", "Home", "End")
+        content = self.textbox.get("1.0", "end-1c")
+        if len(content) >= 80 and event.keysym not in allowed_keys:
+            return "break"
+
     def send_serial(self):
         lines = self.textbox.get("1.0", "end").splitlines()
         
-        message = lines[0]
+        message = lines[0].rstrip()
 
         port = self.port_var.get()
         if "(No hay puertos)" in port:
