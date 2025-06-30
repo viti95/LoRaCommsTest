@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
+from tkinter import ttk
 import serial
 import serial.tools.list_ports
 
@@ -22,7 +23,10 @@ class SerialSenderApp:
             ports = ["(No hay puertos)"]
         self.port_var.set(ports[32])
         tk.Label(root, text="Puerto Serie:").pack()
-        tk.OptionMenu(root, self.port_var, *ports).pack(pady=0)
+
+        self.port_dropdown = ttk.Combobox(root, textvariable=self.port_var, values=ports, state="readonly", height=5)
+        self.port_dropdown.set(ports[0])
+        self.port_dropdown.pack(pady=5)
 
         # Botón de envío
         tk.Button(root, text="Enviar por Serie", command=self.send_serial).pack(pady=10)
