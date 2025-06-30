@@ -43,6 +43,7 @@ class SerialSenderApp:
         lines = self.textbox.get("1.0", "end").splitlines()
         
         message = lines[0].rstrip()
+        message = message[:80]
 
         port = self.port_var.get()
         if "(No hay puertos)" in port:
