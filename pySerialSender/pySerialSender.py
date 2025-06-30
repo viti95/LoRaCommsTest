@@ -16,6 +16,7 @@ class SerialSenderApp:
         self.textbox = tk.Text(root, height=4, width=20, font=("Courier", 12))
         self.textbox.pack(pady=5)
         self.textbox.bind("<Key>", self.limit_text_input)
+        self.textbox.bind("<Return>", lambda event: "break")
 
         # Menú desplegable para puertos serie
         self.port_var = tk.StringVar()
