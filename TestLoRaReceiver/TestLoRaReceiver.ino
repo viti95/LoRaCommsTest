@@ -25,7 +25,7 @@
 #define MESSAGE_DRIVE_THROUGH "DRV TR"
 #define MESSAGE_BLOCK "BLOCK"
 
-int buttonState = 0;  // variable for reading the pushbutton status
+int buttonState = 0; // variable for reading the pushbutton status
 int brightness = 2;
 
 CRGBArray<NUM_LEDS> leds;
@@ -34,7 +34,8 @@ U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, OLED_RESET, OLED_CLOCK, OLED_D
 
 LiquidCrystal_PCF8574 lcd(0x27);
 
-void setup() {
+void setup()
+{
 
   pinMode(PRG_BUTTON, INPUT);
 
@@ -43,9 +44,9 @@ void setup() {
     ;
 
   Wire.begin(15, 4, 400000UL);
-  Wire1.begin(21,22,400000UL);
-  
-  lcd.begin(20,4, Wire1);
+  Wire1.begin(21, 22, 400000UL);
+
+  lcd.begin(20, 4, Wire1);
   lcd.setBacklight(255);
   lcd.clear();
 
@@ -63,7 +64,8 @@ void setup() {
 
   LoRa.setPins(LORA_CS, LORA_RST, LORA_DIO0);
 
-  if (!LoRa.begin(LORA_BAND)) {
+  if (!LoRa.begin(LORA_BAND))
+  {
     Serial.println("Starting LoRa failed!");
     while (1)
       ;
@@ -75,11 +77,21 @@ void setup() {
   LoRa.enableCrc();
 }
 
-int get_y_cursor() {
+int get_y_cursor()
+{
   return 63;
 }
 
-void cmd_box() {
+void confirm_msg_received()
+{
+  // send packet
+  LoRa.beginPacket();
+  LoRa.print(CMD_BOX);
+  LoRa.endPacket();
+}
+
+void cmd_box()
+{
 
   u8g2.setFont(u8g2_font_logisoso50_tr);
   u8g2.clear();
@@ -93,10 +105,12 @@ void cmd_box() {
   lcd.setCursor(4, 3);
   lcd.print("BOX      BOX");
 
-  for (int i = 0; i < 10; i++) {
+  for (int i = 0; i < 10; i++)
+  {
     leds.fill_solid(CRGB::Black);
 
-    if ((i % 2) == 0) {
+    if ((i % 2) == 0)
+    {
       leds.fill_solid(CRGB::Red);
     }
 
@@ -111,7 +125,8 @@ void cmd_box() {
   lcd.clear();
 }
 
-void cmd_yellow_flag() {
+void cmd_yellow_flag()
+{
 
   u8g2.setFont(u8g2_font_logisoso34_tr);
   u8g2.clear();
@@ -123,10 +138,12 @@ void cmd_yellow_flag() {
   lcd.setCursor(4, 1);
   lcd.print("YELLOW FLAG");
 
-  for (int i = 0; i < 10; i++) {
+  for (int i = 0; i < 10; i++)
+  {
     leds.fill_solid(CRGB::Black);
 
-    if ((i % 2) == 0) {
+    if ((i % 2) == 0)
+    {
       leds.fill_solid(CRGB::Yellow);
     }
 
@@ -141,7 +158,8 @@ void cmd_yellow_flag() {
   lcd.clear();
 }
 
-void cmd_push() {
+void cmd_push()
+{
 
   u8g2.setFont(u8g2_font_logisoso50_tr);
   u8g2.clear();
@@ -155,11 +173,13 @@ void cmd_push() {
   lcd.setCursor(4, 3);
   lcd.print("PUSH    PUSH");
 
-  for (int i = 0; i < 10; i++) {
+  for (int i = 0; i < 10; i++)
+  {
     leds.fill_solid(CRGB::Black);
 
-    if ((i % 2) == 0) {
-    LoRa.print('\n');
+    if ((i % 2) == 0)
+    {
+      LoRa.print('\n');
       leds.fill_solid(CRGB::Green);
     }
 
@@ -174,7 +194,8 @@ void cmd_push() {
   lcd.clear();
 }
 
-void cmd_drive_through() {
+void cmd_drive_through()
+{
 
   u8g2.setFont(u8g2_font_logisoso34_tr);
   u8g2.clear();
@@ -186,10 +207,12 @@ void cmd_drive_through() {
   lcd.setCursor(0, 1);
   lcd.print("DRIVE THROUGH");
 
-  for (int i = 0; i < 10; i++) {
+  for (int i = 0; i < 10; i++)
+  {
     leds.fill_solid(CRGB::Black);
 
-    if ((i % 2) == 0) {
+    if ((i % 2) == 0)
+    {
       leds.fill_solid(CRGB::OrangeRed);
     }
 
@@ -204,7 +227,8 @@ void cmd_drive_through() {
   lcd.clear();
 }
 
-void cmd_slow() {
+void cmd_slow()
+{
 
   u8g2.setFont(u8g2_font_logisoso50_tr);
   u8g2.clear();
@@ -218,10 +242,12 @@ void cmd_slow() {
   lcd.setCursor(4, 3);
   lcd.print("SLOW    SLOW");
 
-  for (int i = 0; i < 10; i++) {
+  for (int i = 0; i < 10; i++)
+  {
     leds.fill_solid(CRGB::Black);
 
-    if ((i % 2) == 0) {
+    if ((i % 2) == 0)
+    {
       leds.fill_solid(CRGB::Blue);
     }
 
@@ -236,7 +262,8 @@ void cmd_slow() {
   lcd.clear();
 }
 
-void cmd_block() {
+void cmd_block()
+{
 
   u8g2.setFont(u8g2_font_logisoso38_tr);
   u8g2.clear();
@@ -248,10 +275,12 @@ void cmd_block() {
   lcd.setCursor(7, 2);
   lcd.print("BLOCK");
 
-  for (int i = 0; i < 10; i++) {
+  for (int i = 0; i < 10; i++)
+  {
     leds.fill_solid(CRGB::Black);
 
-    if ((i % 2) == 0) {
+    if ((i % 2) == 0)
+    {
       leds.fill_solid(CRGB::White);
     }
 
@@ -266,36 +295,38 @@ void cmd_block() {
   lcd.clear();
 }
 
-void cmd_cambio_brillo() {
-  
+void cmd_cambio_brillo()
+{
+
   brightness++;
 
   if (brightness == 3)
     brightness = 0;
-  
+
   u8g2.setFont(u8g2_font_logisoso18_tr);
   u8g2.clear();
   u8g2.setCursor(0, get_y_cursor());
 
   lcd.clear();
-  lcd.setCursor(0,4);
+  lcd.setCursor(0, 4);
 
-  switch(brightness){
-    case 0:
-      u8g2.print(MESSAGE_BRILLO_BAJO);
-      FastLED.setBrightness(RGB_BRIGHTNESS_LOW);
-      lcd.print(MESSAGE_BRILLO_BAJO);
-      break;
-    case 1:
-      u8g2.print(MESSAGE_BRILLO_MEDIO);
-      FastLED.setBrightness(RGB_BRIGHTNESS_MEDIUM);
-      lcd.print(MESSAGE_BRILLO_MEDIO);
-      break;
-    case 2:
-      u8g2.print(MESSAGE_BRILLO_ALTO);
-      FastLED.setBrightness(RGB_BRIGHTNESS_HIGH);
-      lcd.print(MESSAGE_BRILLO_ALTO);
-      break;
+  switch (brightness)
+  {
+  case 0:
+    u8g2.print(MESSAGE_BRILLO_BAJO);
+    FastLED.setBrightness(RGB_BRIGHTNESS_LOW);
+    lcd.print(MESSAGE_BRILLO_BAJO);
+    break;
+  case 1:
+    u8g2.print(MESSAGE_BRILLO_MEDIO);
+    FastLED.setBrightness(RGB_BRIGHTNESS_MEDIUM);
+    lcd.print(MESSAGE_BRILLO_MEDIO);
+    break;
+  case 2:
+    u8g2.print(MESSAGE_BRILLO_ALTO);
+    FastLED.setBrightness(RGB_BRIGHTNESS_HIGH);
+    lcd.print(MESSAGE_BRILLO_ALTO);
+    break;
   }
 
   u8g2.sendBuffer();
@@ -308,7 +339,8 @@ void cmd_cambio_brillo() {
   lcd.clear();
 }
 
-void cmd_msg(String *text) {
+void cmd_msg(String *text)
+{
 
   u8g2.setFont(u8g2_font_logisoso50_tr);
   u8g2.clear();
@@ -316,10 +348,12 @@ void cmd_msg(String *text) {
   u8g2.print(MESSAGE_MSG);
   u8g2.sendBuffer();
 
-  for (int i = 0; i < 6; i++) {
+  for (int i = 0; i < 6; i++)
+  {
     leds.fill_solid(CRGB::Black);
 
-    if ((i % 2) == 0) {
+    if ((i % 2) == 0)
+    {
       leds.fill_solid(CRGB::White);
     }
 
@@ -335,29 +369,37 @@ void cmd_msg(String *text) {
   // Saltos de linea no funcionan bien (¿problema de la librería?)
   lcd.setCursor(0, 0);
 
-  for (int i = 0; i < 20; i++) {
-    if(text->charAt(i) == '\n') return;
+  for (int i = 0; i < 20; i++)
+  {
+    if (text->charAt(i) == '\n')
+      return;
     lcd.print(text->charAt(i));
   }
 
   lcd.setCursor(0, 1);
-  
-  for (int i = 20; i < 40; i++) {
-    if(text->charAt(i) == '\n') return;
+
+  for (int i = 20; i < 40; i++)
+  {
+    if (text->charAt(i) == '\n')
+      return;
     lcd.print(text->charAt(i));
   }
 
   lcd.setCursor(0, 2);
-  
-  for (int i = 40; i < 60; i++) {
-    if(text->charAt(i) == '\n') return;
+
+  for (int i = 40; i < 60; i++)
+  {
+    if (text->charAt(i) == '\n')
+      return;
     lcd.print(text->charAt(i));
   }
-  
+
   lcd.setCursor(0, 3);
-  
-  for (int i = 60; i < 80; i++) {
-    if(text->charAt(i) == '\n') return;
+
+  for (int i = 60; i < 80; i++)
+  {
+    if (text->charAt(i) == '\n')
+      return;
     lcd.print(text->charAt(i));
   }
 
@@ -365,22 +407,24 @@ void cmd_msg(String *text) {
   u8g2.sendBuffer();
 
   delay(1000);
-
 }
 
-void loop() {
+void loop()
+{
 
   buttonState = digitalRead(PRG_BUTTON);
 
   // read button
-  if (buttonState == LOW) { // WTF
+  if (buttonState == LOW)
+  { // WTF
     cmd_cambio_brillo();
   }
 
   // try to parse packet
   int packetSize = LoRa.parsePacket();
 
-  if (packetSize) {
+  if (packetSize)
+  {
     // received a packet
     String text = LoRa.readString();
 
@@ -388,21 +432,35 @@ void loop() {
     Serial.print("RSSI: ");
     Serial.println(LoRa.packetRssi());
 
-    if (text == CMD_BOX) {
+    if (text == CMD_BOX)
+    {
       cmd_box();
-    } else if (text == CMD_SLOW) {
+    }
+    else if (text == CMD_SLOW)
+    {
       cmd_slow();
-    } else if (text == CMD_YELLOW_FLAG) {
+    }
+    else if (text == CMD_YELLOW_FLAG)
+    {
       cmd_yellow_flag();
-    } else if (text == CMD_PUSH) {
+    }
+    else if (text == CMD_PUSH)
+    {
       cmd_push();
-    } else if (text == CMD_DRIVE_THROUGH) {
+    }
+    else if (text == CMD_DRIVE_THROUGH)
+    {
       cmd_drive_through();
-    } else if (text == CMD_BLOCK) {
+    }
+    else if (text == CMD_BLOCK)
+    {
       cmd_block();
-    } else if (text.startsWith(CMD_MSG)) {
+    }
+    else if (text.startsWith(CMD_MSG))
+    {
       cmd_msg(&text);
     }
 
+    confirm_msg_received();
   }
 }

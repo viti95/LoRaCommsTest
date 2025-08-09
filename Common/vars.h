@@ -22,6 +22,7 @@
 #define CMD_DRIVE_THROUGH "MVD DT"
 #define CMD_BLOCK "MVD BLK" 
 #define CMD_MSG "MVD MSG"
+#define CMD_OK "MVD OK"
 
 // Fonts for text sizes
 // 3 chars -> u8g2_font_logisoso50_tr
