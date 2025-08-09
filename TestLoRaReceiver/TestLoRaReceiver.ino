@@ -435,32 +435,37 @@ void loop()
     if (text == CMD_BOX)
     {
       cmd_box();
+      confirm_msg_received();
     }
     else if (text == CMD_SLOW)
     {
       cmd_slow();
+      confirm_msg_received();
     }
     else if (text == CMD_YELLOW_FLAG)
     {
       cmd_yellow_flag();
+      confirm_msg_received();
     }
     else if (text == CMD_PUSH)
     {
       cmd_push();
+      confirm_msg_received();
     }
     else if (text == CMD_DRIVE_THROUGH)
     {
       cmd_drive_through();
+      confirm_msg_received();
     }
     else if (text == CMD_BLOCK)
     {
       cmd_block();
+      confirm_msg_received();
     }
     else if (text.startsWith(CMD_MSG))
     {
       cmd_msg(&text);
+      confirm_msg_received();
     }
-
-    confirm_msg_received();
   }
 }

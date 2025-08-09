@@ -237,7 +237,7 @@ void cmd_button_7()
   display_clear();
 }
 
-void cmd_button_8()
+/*void cmd_button_8()
 {
   Serial.println("Button K8, send packet!");
 
@@ -253,7 +253,7 @@ void cmd_button_8()
   // delay(1000);
 
   // display_clear();
-}
+}*/
 
 void loop()
 {
