@@ -7,7 +7,8 @@
 #define OLED_BRIGHTNESS 255
 
 #define MESSAGE_SENDING "SENDING"
-#define MESSAGE_OK      "OK"
+#define MESSAGE_OK "OK"
+#define MESSAGE_RECEIVED "RECEIVED"
 
 // Buttons
 #define BUTTON_0 36
@@ -30,7 +31,8 @@ int buttonState7 = 0;
 
 U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(U8G2_R2, OLED_RESET, OLED_CLOCK, OLED_DATA);
 
-void setup() {
+void setup()
+{
 
   pinMode(BUTTON_0, INPUT);
   pinMode(BUTTON_1, INPUT);
@@ -42,7 +44,8 @@ void setup() {
   pinMode(BUTTON_7, INPUT);
 
   Serial.begin(115200);
-  while (!Serial);
+  while (!Serial)
+    ;
 
   Serial.println("Init SSD1306 display");
 
@@ -53,211 +56,268 @@ void setup() {
 
   LoRa.setPins(LORA_CS, LORA_RST, LORA_DIO0);
 
-  if (!LoRa.begin(LORA_BAND)) {
+  if (!LoRa.begin(LORA_BAND))
+  {
     Serial.println("Starting LoRa failed!");
-    while (1);
+    while (1)
+      ;
   }
 
   LoRa.setTxPower(20);
   LoRa.setSpreadingFactor(12);
-  LoRa.setCodingRate4(8); 
+  LoRa.setCodingRate4(8);
   LoRa.enableCrc();
 }
 
-int get_y_cursor() {
+int get_y_cursor()
+{
   return 63;
 }
 
-void display_send_msg() {
-
+void display_send_msg()
+{
   u8g2.setFont(u8g2_font_logisoso30_tr);
   u8g2.clear();
   u8g2.setCursor(0, get_y_cursor());
   u8g2.print(MESSAGE_SENDING);
   u8g2.sendBuffer();
-
 }
 
-void display_ok() {
-
+void display_ok()
+{
   u8g2.setFont(u8g2_font_logisoso50_tr);
   u8g2.clear();
   u8g2.setCursor(0, get_y_cursor());
   u8g2.print(MESSAGE_OK);
   u8g2.sendBuffer();
-
 }
 
-void display_clear() {
+void display_msg_received()
+{
+  u8g2.setFont(u8g2_font_logisoso24_tr);
+  u8g2.clear();
+  u8g2.setCursor(0, get_y_cursor());
+  u8g2.print(MESSAGE_RECEIVED);
+  u8g2.sendBuffer();
+}
+
+void display_clear()
+{
   u8g2.clear();
   u8g2.sendBuffer();
 }
 
-void loop() {
+void cmd_button_1()
+{
+
+  Serial.println("Button K1, send packet!");
+
+  display_send_msg();
+
+  // send packet
+  LoRa.beginPacket();
+  LoRa.print(CMD_BOX);
+  LoRa.endPacket();
+
+  display_ok();
+
+  delay(1000);
+
+  display_clear();
+}
+
+void cmd_button_2()
+{
+
+  Serial.println("Button K2, send packet!");
+
+  display_send_msg();
+
+  // send packet
+  LoRa.beginPacket();
+  LoRa.print(CMD_YELLOW_FLAG);
+  LoRa.endPacket();
+
+  display_ok();
+
+  delay(1000);
+
+  display_clear();
+}
+
+void cmd_button_3()
+{
+  Serial.println("Button K3, send packet!");
+
+  display_send_msg();
+
+  // send packet
+  LoRa.beginPacket();
+  LoRa.print(CMD_SLOW);
+  LoRa.endPacket();
+
+  display_ok();
+
+  delay(1000);
+
+  display_clear();
+}
+
+void cmd_button_4()
+{
+  Serial.println("Button K4, send packet!");
+
+  display_send_msg();
+
+  // send packet
+  LoRa.beginPacket();
+  LoRa.print(CMD_PUSH);
+  LoRa.endPacket();
+
+  display_ok();
+
+  delay(1000);
+
+  display_clear();
+}
+
+void cmd_button_5()
+{
+  Serial.println("Button K5, send packet!");
+
+  display_send_msg();
+
+  // send packet
+  LoRa.beginPacket();
+  LoRa.print(CMD_DRIVE_THROUGH);
+  LoRa.endPacket();
+
+  display_ok();
+
+  delay(1000);
+
+  display_clear();
+}
+
+void cmd_button_6()
+{
+
+  Serial.println("Button K6, send packet!");
+
+  // display_send_msg();
+
+  // send packet
+  /*LoRa.beginPacket();
+  LoRa.print();
+  LoRa.endPacket();*/
+
+  // display_ok();
+
+  // delay(1000);
+
+  // display_clear();
+}
+
+void cmd_button_7()
+{
+
+  Serial.println("Button K7, send packet!");
+
+  display_send_msg();
+
+  // send packet
+  LoRa.beginPacket();
+  LoRa.print(CMD_BLOCK);
+  LoRa.endPacket();
+
+  display_ok();
+
+  delay(1000);
+
+  display_clear();
+}
+
+/*void cmd_button_8()
+{
+  Serial.println("Button K8, send packet!");
+
+  // display_send_msg();
+
+  // send packet
+  LoRa.beginPacket();
+  LoRa.print();
+  LoRa.endPacket();
+
+  // display_ok();
+
+  // delay(1000);
+
+  // display_clear();
+}*/
+
+void loop()
+{
 
   buttonState0 = digitalRead(BUTTON_0);
 
-  if (buttonState0 == LOW) {
-
-    Serial.println("Button K1, send packet!");
-
-    display_send_msg();
-
-    // send packet
-    LoRa.beginPacket();
-    LoRa.print(CMD_BOX);
-    LoRa.endPacket();
-
-    display_ok();
-
-    delay(1000);
-
-    display_clear();
+  if (buttonState0 == LOW)
+  {
+    cmd_button_1();
   }
 
   buttonState1 = digitalRead(BUTTON_1);
 
-  if (buttonState1 == LOW) {
-
-    Serial.println("Button K2, send packet!");
-
-    display_send_msg();
-
-    // send packet
-    LoRa.beginPacket();
-    LoRa.print(CMD_YELLOW_FLAG);
-    LoRa.endPacket();
-
-    display_ok();
-
-    delay(1000);
-
-    display_clear();
+  if (buttonState1 == LOW)
+  {
+    cmd_button_2();
   }
 
   buttonState2 = digitalRead(BUTTON_2);
 
-  if (buttonState2 == LOW) {
-
-    Serial.println("Button K3, send packet!");
-
-    display_send_msg();
-
-    // send packet
-    LoRa.beginPacket();
-    LoRa.print(CMD_SLOW);
-    LoRa.endPacket();
-
-    display_ok();
-
-    delay(1000);
-
-    display_clear();
+  if (buttonState2 == LOW)
+  {
+    cmd_button_3();
   }
 
   buttonState3 = digitalRead(BUTTON_3);
 
-  if (buttonState3 == LOW) {
-
-    Serial.println("Button K4, send packet!");
-
-    display_send_msg();
-
-    // send packet
-    LoRa.beginPacket();
-    LoRa.print(CMD_PUSH);
-    LoRa.endPacket();
-
-    display_ok();
-
-    delay(1000);
-
-    display_clear();
+  if (buttonState3 == LOW)
+  {
+    cmd_button_4();
   }
 
   buttonState4 = digitalRead(BUTTON_4);
 
-  if (buttonState4 == LOW) {
-
-    Serial.println("Button K5, send packet!");
-
-    display_send_msg();
-
-    // send packet
-    LoRa.beginPacket();
-    LoRa.print(CMD_DRIVE_THROUGH);
-    LoRa.endPacket();
-
-    display_ok();
-
-    delay(1000);
-
-    display_clear();
+  if (buttonState4 == LOW)
+  {
+    cmd_button_5();
   }
 
   buttonState5 = digitalRead(BUTTON_5);
 
-  if (buttonState5 == LOW) {
-
-    Serial.println("Button K6, send packet!");
-
-    //display_send_msg();
-
-    // send packet
-    /*LoRa.beginPacket();
-    LoRa.print();
-    LoRa.endPacket();*/
-
-    //display_ok();
-
-    //delay(1000);
-
-    //display_clear();
+  if (buttonState5 == LOW)
+  {
+    cmd_button_6();
   }
 
   buttonState6 = digitalRead(BUTTON_6);
 
-  if (buttonState6 == LOW) {
-
-    Serial.println("Button K7, send packet!");
-
-    display_send_msg();
-
-    // send packet
-    LoRa.beginPacket();
-    LoRa.print(CMD_BLOCK);
-    LoRa.endPacket();
-
-    display_ok();
-
-    delay(1000);
-
-    display_clear();
+  if (buttonState6 == LOW)
+  {
+    cmd_button_7();
   }
 
+  // NO FUNCIONA ESTE BOTON EN EL HARDWARE
   /*buttonState7 = digitalRead(BUTTON_7);
 
   if (buttonState7 == LOW) {
-
-    Serial.println("Button K8, send packet!");
-
-    //display_send_msg();
-
-    // send packet
-    LoRa.beginPacket();
-    LoRa.print();
-    LoRa.endPacket();
-
-    //display_ok();
-
-    //delay(1000);
-
-    //display_clear();
+    cmd_button_8();
   }*/
 
   // Leer serie, si llega un mensaje, mandarlo
 
-  if (Serial.available()){
+  if (Serial.available())
+  {
 
     // Esperar a que llegue todo
     delay(100);
@@ -270,7 +330,7 @@ void loop() {
 
     LoRa.print(CMD_MSG);
 
-    while(Serial.available())
+    while (Serial.available())
     {
       char inChar = (char)Serial.read();
       LoRa.print(inChar);
@@ -284,6 +344,21 @@ void loop() {
     delay(1000);
 
     display_clear();
+  }
 
+  // Ver si ha llegado un mensaje de confirmación
+  int packetSize = LoRa.parsePacket();
+
+  if (packetSize)
+  {
+    // Mostrar mensaje ok
+    String text = LoRa.readString();
+
+    if (text == CMD_OK)
+    {
+      display_msg_received();
+      delay(1000);
+      display_clear();
+    }
   }
 }
