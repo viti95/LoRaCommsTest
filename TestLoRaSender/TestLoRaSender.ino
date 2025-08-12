@@ -94,7 +94,7 @@ void display_ok()
 
 void display_msg_received()
 {
-  u8g2.setFont(u8g2_font_logisoso30_tr);
+  u8g2.setFont(u8g2_font_logisoso24_tr);
   u8g2.clear();
   u8g2.setCursor(0, get_y_cursor());
   u8g2.print(MESSAGE_RECEIVED);
@@ -353,9 +353,12 @@ void loop()
   {
     // Mostrar mensaje ok
     String text = LoRa.readString();
+
     if (text == CMD_OK)
     {
       display_msg_received();
+      delay(1000);
+      display_clear();
     }
   }
 }

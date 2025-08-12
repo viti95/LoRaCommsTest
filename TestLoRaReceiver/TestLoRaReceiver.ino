@@ -86,7 +86,7 @@ void confirm_msg_received()
 {
   // send packet
   LoRa.beginPacket();
-  LoRa.print(CMD_BOX);
+  LoRa.print(CMD_OK);
   LoRa.endPacket();
 }
 
