@@ -357,7 +357,7 @@ void loop()
     if (text == CMD_OK)
     {
       display_msg_received();
-      delay(1000);
+      delay(2000);
       display_clear();
     }
   }

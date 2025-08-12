@@ -465,6 +465,7 @@ void loop()
     else if (text.startsWith(CMD_MSG))
     {
       cmd_msg(&text);
+      delay(1000);
       confirm_msg_received();
     }
   }
