@@ -10,7 +10,7 @@ difference(){
     };
     #right (2+15) back((120-98)/2) cube([41,98,2]);
     //#back((120-65)/5) right(140-10-4-63) cube([63,65,2]);
-    #back(41) right(92) grid_copies(n=[8,8], spacing=[3+5,3.5+5])
+    #back(41) right(98) grid_copies(n=[8,8], spacing=[3+5,3.5+5])
     cube([5,5,2]);
 }
 
