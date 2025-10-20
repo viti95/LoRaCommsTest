@@ -1,6 +1,6 @@
 #include <SPI.h>
 #include <LoRa.h>
-#include <U8g2lib.h>
+//#include <U8g2lib.h>
 #include <FastLED.h>
 #include <Wire.h>
 #include <LiquidCrystal_PCF8574.h>
@@ -30,7 +30,7 @@ int brightness = 2;
 
 CRGBArray<NUM_LEDS> leds;
 
-U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, OLED_RESET, OLED_CLOCK, OLED_DATA);
+//U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, OLED_RESET, OLED_CLOCK, OLED_DATA);
 
 LiquidCrystal_PCF8574 lcd(0x27);
 
@@ -57,8 +57,8 @@ void setup()
 
   Serial.println("Init SSD1306 display");
 
-  u8g2.begin();
-  u8g2.setContrast(OLED_BRIGHTNESS);
+  //u8g2.begin();
+  //u8g2.setContrast(OLED_BRIGHTNESS);
 
   Serial.println("LoRa Receiver");
 
@@ -93,11 +93,11 @@ void confirm_msg_received()
 void cmd_box()
 {
 
-  u8g2.setFont(u8g2_font_logisoso50_tr);
-  u8g2.clear();
-  u8g2.setCursor(0, get_y_cursor());
-  u8g2.print(MESSAGE_BOX);
-  u8g2.sendBuffer();
+  //u8g2.setFont(u8g2_font_logisoso50_tr);
+  //u8g2.clear();
+  //u8g2.setCursor(0, get_y_cursor());
+  //u8g2.print(MESSAGE_BOX);
+  //u8g2.sendBuffer();
 
   lcd.clear();
   lcd.setCursor(4, 0);
@@ -119,8 +119,8 @@ void cmd_box()
     delay(250);
   }
 
-  u8g2.clear();
-  u8g2.sendBuffer();
+  //u8g2.clear();
+  //u8g2.sendBuffer();
 
   lcd.clear();
 }
@@ -128,11 +128,11 @@ void cmd_box()
 void cmd_yellow_flag()
 {
 
-  u8g2.setFont(u8g2_font_logisoso34_tr);
-  u8g2.clear();
-  u8g2.setCursor(0, get_y_cursor());
-  u8g2.print(MESSAGE_YELLOW_FLAG);
-  u8g2.sendBuffer();
+  //u8g2.setFont(u8g2_font_logisoso34_tr);
+  //u8g2.clear();
+  //u8g2.setCursor(0, get_y_cursor());
+  //u8g2.print(MESSAGE_YELLOW_FLAG);
+  //u8g2.sendBuffer();
 
   lcd.clear();
   lcd.setCursor(4, 1);
@@ -152,8 +152,8 @@ void cmd_yellow_flag()
     delay(250);
   }
 
-  u8g2.clear();
-  u8g2.sendBuffer();
+  //u8g2.clear();
+  //u8g2.sendBuffer();
 
   lcd.clear();
 }
@@ -161,11 +161,11 @@ void cmd_yellow_flag()
 void cmd_push()
 {
 
-  u8g2.setFont(u8g2_font_logisoso50_tr);
-  u8g2.clear();
-  u8g2.setCursor(0, get_y_cursor());
-  u8g2.print(MESSAGE_PUSH);
-  u8g2.sendBuffer();
+  //u8g2.setFont(u8g2_font_logisoso50_tr);
+  //u8g2.clear();
+  //u8g2.setCursor(0, get_y_cursor());
+  //u8g2.print(MESSAGE_PUSH);
+  //u8g2.sendBuffer();
 
   lcd.clear();
   lcd.setCursor(4, 0);
@@ -188,8 +188,8 @@ void cmd_push()
     delay(250);
   }
 
-  u8g2.clear();
-  u8g2.sendBuffer();
+  //u8g2.clear();
+  //u8g2.sendBuffer();
 
   lcd.clear();
 }
@@ -197,11 +197,11 @@ void cmd_push()
 void cmd_drive_through()
 {
 
-  u8g2.setFont(u8g2_font_logisoso34_tr);
-  u8g2.clear();
-  u8g2.setCursor(0, get_y_cursor());
-  u8g2.print(MESSAGE_DRIVE_THROUGH);
-  u8g2.sendBuffer();
+  //u8g2.setFont(u8g2_font_logisoso34_tr);
+  //u8g2.clear();
+  //u8g2.setCursor(0, get_y_cursor());
+  //u8g2.print(MESSAGE_DRIVE_THROUGH);
+  //u8g2.sendBuffer();
 
   lcd.clear();
   lcd.setCursor(0, 1);
@@ -221,8 +221,8 @@ void cmd_drive_through()
     delay(250);
   }
 
-  u8g2.clear();
-  u8g2.sendBuffer();
+  //u8g2.clear();
+  //u8g2.sendBuffer();
 
   lcd.clear();
 }
@@ -230,11 +230,11 @@ void cmd_drive_through()
 void cmd_slow()
 {
 
-  u8g2.setFont(u8g2_font_logisoso50_tr);
-  u8g2.clear();
-  u8g2.setCursor(0, get_y_cursor());
-  u8g2.print(MESSAGE_SLOW);
-  u8g2.sendBuffer();
+  //u8g2.setFont(u8g2_font_logisoso50_tr);
+  //u8g2.clear();
+  //u8g2.setCursor(0, get_y_cursor());
+  //u8g2.print(MESSAGE_SLOW);
+  //u8g2.sendBuffer();
 
   lcd.clear();
   lcd.setCursor(4, 0);
@@ -256,8 +256,8 @@ void cmd_slow()
     delay(250);
   }
 
-  u8g2.clear();
-  u8g2.sendBuffer();
+  //u8g2.clear();
+  //u8g2.sendBuffer();
 
   lcd.clear();
 }
@@ -265,11 +265,11 @@ void cmd_slow()
 void cmd_block()
 {
 
-  u8g2.setFont(u8g2_font_logisoso38_tr);
-  u8g2.clear();
-  u8g2.setCursor(0, get_y_cursor());
-  u8g2.print(MESSAGE_BLOCK);
-  u8g2.sendBuffer();
+  //u8g2.setFont(u8g2_font_logisoso38_tr);
+  //u8g2.clear();
+  //u8g2.setCursor(0, get_y_cursor());
+  //u8g2.print(MESSAGE_BLOCK);
+  //u8g2.sendBuffer();
 
   lcd.clear();
   lcd.setCursor(7, 2);
@@ -289,8 +289,8 @@ void cmd_block()
     delay(250);
   }
 
-  u8g2.clear();
-  u8g2.sendBuffer();
+  //u8g2.clear();
+  //u8g2.sendBuffer();
 
   lcd.clear();
 }
@@ -303,9 +303,9 @@ void cmd_cambio_brillo()
   if (brightness == 3)
     brightness = 0;
 
-  u8g2.setFont(u8g2_font_logisoso18_tr);
-  u8g2.clear();
-  u8g2.setCursor(0, get_y_cursor());
+  //u8g2.setFont(u8g2_font_logisoso18_tr);
+  //u8g2.clear();
+  //u8g2.setCursor(0, get_y_cursor());
 
   lcd.clear();
   lcd.setCursor(0, 4);
@@ -313,28 +313,28 @@ void cmd_cambio_brillo()
   switch (brightness)
   {
   case 0:
-    u8g2.print(MESSAGE_BRILLO_BAJO);
+    //u8g2.print(MESSAGE_BRILLO_BAJO);
     FastLED.setBrightness(RGB_BRIGHTNESS_LOW);
     lcd.print(MESSAGE_BRILLO_BAJO);
     break;
   case 1:
-    u8g2.print(MESSAGE_BRILLO_MEDIO);
+    //u8g2.print(MESSAGE_BRILLO_MEDIO);
     FastLED.setBrightness(RGB_BRIGHTNESS_MEDIUM);
     lcd.print(MESSAGE_BRILLO_MEDIO);
     break;
   case 2:
-    u8g2.print(MESSAGE_BRILLO_ALTO);
+    //u8g2.print(MESSAGE_BRILLO_ALTO);
     FastLED.setBrightness(RGB_BRIGHTNESS_HIGH);
     lcd.print(MESSAGE_BRILLO_ALTO);
     break;
   }
 
-  u8g2.sendBuffer();
+  //u8g2.sendBuffer();
 
   delay(1000);
 
-  u8g2.clear();
-  u8g2.sendBuffer();
+  //u8g2.clear();
+  //u8g2.sendBuffer();
 
   lcd.clear();
 }
@@ -342,11 +342,11 @@ void cmd_cambio_brillo()
 void cmd_msg(String *text)
 {
 
-  u8g2.setFont(u8g2_font_logisoso50_tr);
-  u8g2.clear();
-  u8g2.setCursor(0, get_y_cursor());
-  u8g2.print(MESSAGE_MSG);
-  u8g2.sendBuffer();
+  //u8g2.setFont(u8g2_font_logisoso50_tr);
+  //u8g2.clear();
+  //u8g2.setCursor(0, get_y_cursor());
+  //u8g2.print(MESSAGE_MSG);
+  //u8g2.sendBuffer();
 
   for (int i = 0; i < 6; i++)
   {
@@ -403,8 +403,8 @@ void cmd_msg(String *text)
     lcd.print(text->charAt(i));
   }
 
-  u8g2.clear();
-  u8g2.sendBuffer();
+  //u8g2.clear();
+  //u8g2.sendBuffer();
 
   delay(1000);
 }
