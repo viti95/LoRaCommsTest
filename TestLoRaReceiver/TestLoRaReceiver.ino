@@ -13,9 +13,9 @@
 #define RGB_BRIGHTNESS_MEDIUM 60
 #define RGB_BRIGHTNESS_LOW 10
 
-#define MESSAGE_BRILLO_BAJO "Brillo BAJO"
-#define MESSAGE_BRILLO_MEDIO "Brillo MEDIO"
-#define MESSAGE_BRILLO_ALTO "Brillo ALTO"
+//#define MESSAGE_BRILLO_BAJO "Brillo BAJO"
+//#define MESSAGE_BRILLO_MEDIO "Brillo MEDIO"
+//#define MESSAGE_BRILLO_ALTO "Brillo ALTO"
 
 #define MESSAGE_BOX "BOX"
 #define MESSAGE_MSG "MSG"
@@ -295,7 +295,7 @@ void cmd_block()
   lcd.clear();
 }
 
-void cmd_cambio_brillo()
+/*void cmd_cambio_brillo()
 {
 
   brightness++;
@@ -337,7 +337,7 @@ void cmd_cambio_brillo()
   //u8g2.sendBuffer();
 
   lcd.clear();
-}
+}*/
 
 void cmd_msg(String *text)
 {
@@ -415,10 +415,10 @@ void loop()
   buttonState = digitalRead(PRG_BUTTON);
 
   // read button
-  if (buttonState == LOW)
+  /*if (buttonState == LOW)
   { // WTF
     cmd_cambio_brillo();
-  }
+  }*/
 
   // try to parse packet
   int packetSize = LoRa.parsePacket();
