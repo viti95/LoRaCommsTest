@@ -24,6 +24,9 @@
 #define CMD_MSG "MVD MSG"
 #define CMD_OK "MVD OK"
 
+#define CMD_YES "MVD YES"
+#define CMD_NO "MVD NO"
+
 // Fonts for text sizes
 // 3 chars -> u8g2_font_logisoso50_tr
 // 4 chars -> u8g2_font_logisoso50_tr

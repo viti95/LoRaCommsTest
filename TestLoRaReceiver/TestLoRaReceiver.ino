@@ -25,8 +25,12 @@
 #define MESSAGE_DRIVE_THROUGH "DRV TR"
 #define MESSAGE_BLOCK "BLOCK"
 
-int buttonState = 0; // variable for reading the pushbutton status
-int brightness = 2;
+const int buttonPins[4] = {38, 39, 32, 33};
+const char* buttonNames[4] = {"K1", "K2", "K3", "K4"};
+bool lastState[4] = {HIGH, HIGH, HIGH, HIGH};
+
+//int buttonState = 0; // variable for reading the pushbutton status
+//int brightness = 2;
 
 CRGBArray<NUM_LEDS> leds;
 
@@ -37,7 +41,11 @@ LiquidCrystal_PCF8574 lcd(0x27);
 void setup()
 {
 
-  pinMode(PRG_BUTTON, INPUT);
+  //pinMode(PRG_BUTTON, INPUT);
+
+  for (int i = 0; i < 4; i++) {
+    pinMode(buttonPins[i], INPUT_PULLUP);
+  }
 
   Serial.begin(115200);
   while (!Serial)
@@ -412,13 +420,25 @@ void cmd_msg(String *text)
 void loop()
 {
 
-  buttonState = digitalRead(PRG_BUTTON);
+  //buttonState = digitalRead(PRG_BUTTON);
 
   // read button
   /*if (buttonState == LOW)
   { // WTF
     cmd_cambio_brillo();
   }*/
+
+  for (int i = 0; i < 4; i++) {
+    bool state = digitalRead(buttonPins[i]);
+
+    if (state == LOW && lastState[i] == HIGH) {
+      Serial.print("Botón pulsado: ");
+      Serial.println(buttonNames[i]);
+      delay(500); // simple debounce
+    }
+
+    lastState[i] = state;
+  }
 
   // try to parse packet
   int packetSize = LoRa.parsePacket();
