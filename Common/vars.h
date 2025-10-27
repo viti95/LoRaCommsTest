@@ -26,6 +26,8 @@
 
 #define CMD_YES "MVD YES"
 #define CMD_NO "MVD NO"
+#define CMD_BOX_PILOT "MVD BP"
+#define CMD_BOX_CAR "MVD BC"
 
 // Fonts for text sizes
 // 3 chars -> u8g2_font_logisoso50_tr

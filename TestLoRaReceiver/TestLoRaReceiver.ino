@@ -114,6 +114,22 @@ void send_msg_no()
   LoRa.endPacket();
 }
 
+void send_msg_box_pilot()
+{
+  // send packet
+  LoRa.beginPacket();
+  LoRa.print(CMD_BOX_PILOT);
+  LoRa.endPacket();
+}
+
+void send_msg_box_car()
+{
+  // send packet
+  LoRa.beginPacket();
+  LoRa.print(CMD_BOX_CAR);
+  LoRa.endPacket();
+}
+
 void cmd_box()
 {
 
@@ -460,8 +476,10 @@ void loop()
         send_msg_no();
         break;
         case 2:
+        send_msg_box_pilot();
         break;
         case 3:
+        send_msg_box_car();
         break;
       }
     }

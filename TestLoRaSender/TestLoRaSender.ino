@@ -11,6 +11,9 @@
 #define MESSAGE_RECEIVED "RECEIVED"
 #define MESSAGE_YES "YES"
 #define MESSAGE_NO "NO"
+#define MESSAGE_BOX "BOX"
+#define MESSAGE_PILOT "PILOT"
+#define MESSAGE_CAR "CAR"
 
 // Buttons
 #define BUTTON_0 36
@@ -118,6 +121,28 @@ void display_msg_no()
   u8g2.clear();
   u8g2.setCursor(0, get_y_cursor());
   u8g2.print(MESSAGE_NO);
+  u8g2.sendBuffer();
+}
+
+void display_msg_box_pilot()
+{
+  u8g2.setFont(u8g2_font_logisoso24_tr);
+  u8g2.clear();
+  u8g2.setCursor(0, get_y_cursor());
+  u8g2.print(MESSAGE_PILOT);
+  u8g2.setCursor(0, get_y_cursor() - 30);
+  u8g2.print(MESSAGE_BOX);
+  u8g2.sendBuffer();
+}
+
+void display_msg_box_car()
+{
+  u8g2.setFont(u8g2_font_logisoso24_tr);
+  u8g2.clear();
+  u8g2.setCursor(0, get_y_cursor());
+  u8g2.print(MESSAGE_CAR);
+  u8g2.setCursor(0, get_y_cursor() - 30);
+  u8g2.print(MESSAGE_BOX);
   u8g2.sendBuffer();
 }
 
@@ -390,6 +415,18 @@ void loop()
     if (text == CMD_NO)
     {
       display_msg_no();
+      delay(2000);
+    }
+
+    if (text == CMD_BOX_PILOT)
+    {
+      display_msg_box_pilot();
+      delay(2000);
+    }
+
+    if (text == CMD_BOX_CAR)
+    {
+      display_msg_box_car();
       delay(2000);
     }
   }
