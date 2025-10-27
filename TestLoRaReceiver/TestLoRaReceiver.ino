@@ -25,7 +25,7 @@
 #define MESSAGE_DRIVE_THROUGH "DRV TR"
 #define MESSAGE_BLOCK "BLOCK"
 
-const int buttonPins[4] = {38, 39, 32, 33};
+const int buttonPins[4] = {32, 33, 39, 38};
 const char* buttonNames[4] = {"K1", "K2", "K3", "K4"};
 bool lastState[4] = {HIGH, HIGH, HIGH, HIGH};
 
