@@ -98,6 +98,22 @@ void confirm_msg_received()
   LoRa.endPacket();
 }
 
+void send_msg_yes()
+{
+  // send packet
+  LoRa.beginPacket();
+  LoRa.print(CMD_YES);
+  LoRa.endPacket();
+}
+
+void send_msg_no()
+{
+  // send packet
+  LoRa.beginPacket();
+  LoRa.print(CMD_NO);
+  LoRa.endPacket();
+}
+
 void cmd_box()
 {
 
@@ -435,6 +451,19 @@ void loop()
       Serial.print("Botón pulsado: ");
       Serial.println(buttonNames[i]);
       delay(500); // simple debounce
+
+      switch(i) {
+        case 0:
+        send_msg_yes();
+        break;
+        case 1:
+        send_msg_no();
+        break;
+        case 2:
+        break;
+        case 3:
+        break;
+      }
     }
 
     lastState[i] = state;

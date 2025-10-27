@@ -9,6 +9,8 @@
 #define MESSAGE_SENDING "SENDING"
 #define MESSAGE_OK "OK"
 #define MESSAGE_RECEIVED "RECEIVED"
+#define MESSAGE_YES "YES"
+#define MESSAGE_NO "NO"
 
 // Buttons
 #define BUTTON_0 36
@@ -98,6 +100,24 @@ void display_msg_received()
   u8g2.clear();
   u8g2.setCursor(0, get_y_cursor());
   u8g2.print(MESSAGE_RECEIVED);
+  u8g2.sendBuffer();
+}
+
+void display_msg_yes()
+{
+  u8g2.setFont(u8g2_font_logisoso50_tr);
+  u8g2.clear();
+  u8g2.setCursor(0, get_y_cursor());
+  u8g2.print(MESSAGE_YES);
+  u8g2.sendBuffer();
+}
+
+void display_msg_no()
+{
+  u8g2.setFont(u8g2_font_logisoso50_tr);
+  u8g2.clear();
+  u8g2.setCursor(0, get_y_cursor());
+  u8g2.print(MESSAGE_NO);
   u8g2.sendBuffer();
 }
 
@@ -359,6 +379,18 @@ void loop()
       display_msg_received();
       delay(2000);
       display_clear();
+    }
+
+    if (text == CMD_YES)
+    {
+      display_msg_yes();
+      delay(2000);
+    }
+
+    if (text == CMD_NO)
+    {
+      display_msg_no();
+      delay(2000);
     }
   }
 }
